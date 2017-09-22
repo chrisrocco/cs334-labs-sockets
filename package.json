@@ -1,0 +1,20 @@
+{
+  "name": "sockets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "python robot.py",
+    "client": "node dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^8.0.30",
+    "webpack": "^3.6.0"
+  },
+  "dependencies": {
+    "random-int": "^1.0.0"
+  }
+}
