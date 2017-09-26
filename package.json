@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "python robot.py",
+    "server-py2": "py robot_py2.py",
+    "server-py3": "py robot_py3.py",
     "client": "node dist/index.js"
   },
   "author": "",

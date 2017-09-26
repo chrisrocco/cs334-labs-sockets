@@ -3,9 +3,9 @@ const net = require("net");
 const dgram = require("dgram");
 const rand = require("random-int");
 
-
 let port: number = 3310;
 let localhost: string = "0.0.0.0";
+// let robothost: string = "10.229.117.17";
 let robothost: string = "localhost";
 let blazerID = "chrisrocco7";
 

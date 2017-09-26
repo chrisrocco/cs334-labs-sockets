@@ -4,22 +4,26 @@ const net = require("net");
 const dgram = require("dgram");
 const rand = require("random-int");
 let port = 3310;
-let host = "localhost";
+let localhost = "0.0.0.0";
+// let robothost: string = "10.229.117.17";
+let robothost = "localhost";
 let blazerID = "chrisrocco7";
-let client = new net.Socket();
-client.connect(port, host, function () {
+let client1 = new net.Socket();
+client1.connect(port, robothost, function () {
     /* send blazer ID */
-    client.write(blazerID);
+    client1.write(blazerID);
     /* wait for response */
-    client.on("data", function (dataBuffer) {
+    client1.on("data", function (dataBuffer) {
+        client1.destroy();
         /* parsing port received from robot*/
         let port = parseInt(dataBuffer.toString("utf-8", 0, 5));
         /* start server on that port */
         let server = net.createServer();
-        server.listen(port, host);
+        server.listen(port, localhost);
         server.on('connection', function (sock) {
             /* listen for response */
             sock.on("data", function (dataBuffer) {
+                sock.destroy();
                 let str = dataBuffer.toString("utf-8", 0, 12);
                 let strArr = str.split(",");
                 let fffff = parseInt(strArr[0]);
@@ -28,14 +32,14 @@ client.connect(port, host, function () {
                 /* send num on port fffff over UDP */
                 let message = Buffer.from(num.toString());
                 let client4 = dgram.createSocket('udp4');
-                client4.send(message, fffff, host);
+                client4.send(message, fffff, robothost);
                 /* wait for response */
                 let server4 = dgram.createSocket('udp4');
                 server4.on('message', (msgBuffer, rinfo) => {
                     let str = msgBuffer.toString("utf-8", 0, num * 10);
                     for (let i = 0; i < 5; i++) {
                         setTimeout(function () {
-                            client4.send(Buffer.from(str), fffff, host);
+                            client4.send(Buffer.from(str), fffff, robothost);
                         }, 1000);
                     }
                 });
